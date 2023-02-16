@@ -55,3 +55,14 @@ def text_objects1(text, font):
     textSurface = font.render(text, True, blue_color)
     return textSurface, textSurface.get_rect()
 
+# Message displaying for buttons
+def message_display_screen(text, x, y, fs):
+    largeText = pygame.font.Font('freesansbold.ttf', fs)
+    TextSurf, TextRect = text_objects_screen(text, largeText)
+    TextRect.center = (x, y)
+    game_layout_display.blit(TextSurf, TextRect)
+
+
+def text_objects_screen(text, font):
+    textSurface = font.render(text, True, black_color)
+    return textSurface, textSurface.get_rect()
