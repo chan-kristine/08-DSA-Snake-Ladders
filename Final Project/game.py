@@ -39,3 +39,19 @@ snake_sound = pygame.mixer.Sound("sound/snake.wav")
 win = pygame.mixer.Sound("sound/win.wav")
 lose = pygame.mixer.Sound("sound/lose.wav")
 ladder = pygame.mixer.Sound("sound/ladder.wav")
+
+# Message displaying for field
+def message_display1_screen(text, x, y, fs, c):
+    largeText = pygame.font.Font('freesansbold.ttf', fs)
+    TextSurf, TextRect = text_objects1(text, largeText)
+    TextRect.center = (x, y)
+    game_layout_display.blit(TextSurf, TextRect)
+
+def text_objects1_screen(text, font, c):
+    textSurface = font.render(text, True, c)
+    return textSurface, textSurface.get_rect()
+
+def text_objects1(text, font):
+    textSurface = font.render(text, True, blue_color)
+    return textSurface, textSurface.get_rect()
+
