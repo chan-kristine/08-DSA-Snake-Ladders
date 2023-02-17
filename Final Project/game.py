@@ -189,6 +189,66 @@ def creditation():
 
         pygame.display.update()
         
+def introduction():
+    time_clock = pygame.time.get_ticks()
+    while pygame.time.get_ticks() - time_clock < 2500:
+        game_layout_display.blit(background1, (0, 0))
+        pygame.display.update()
+    while True:
+        time_clock = pygame.time.get_ticks()
+        while pygame.time.get_ticks() - time_clock < 500:
+            game_layout_display.blit(background2, (0, 0))
+            pygame.display.update()
+        time_clock = pygame.time.get_ticks()
+        while pygame.time.get_ticks() - time_clock < 500:
+            game_layout_display.blit(background3, (0, 0))
+            pygame.display.update()
+        time_clock = pygame.time.get_ticks()
+        while pygame.time.get_ticks() - time_clock < 500:
+            game_layout_display.blit(background4, (0, 0))
+            pygame.display.update()
+        time_clock = pygame.time.get_ticks()
+        while pygame.time.get_ticks() - time_clock < 500:
+            game_layout_display.blit(background5, (0, 0))
+            pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                return
+        pygame.display.update()
+
+
+# Turn
+def turn(sc, lefted, section):
+    d = randint(1, 6)  # player dice roll
+    if d == 6:
+        six = True
+    else:
+        six = False
+    p = dice(d)
+    sc += d
+    if sc <= 100:
+        laddle = ladders(sc)  # checking for ladders for player
+        if laddle != sc:
+            lefted = True
+            pygame.mixer.Sound.play(ladder)
+            time_clock = pygame.time.get_ticks()
+            sc = laddle
+        sink = snakes(sc)
+        if sink != sc:  # checking for snakes for player
+            section = True
+            pygame.mixer.Sound.play(snake_sound)
+            sc = sink
+
+    else:  # checks if player score is not grater than 100
+        sc -= d
+        time_clock = pygame.time.get_ticks()
+        while pygame.time.get_ticks() - time_clock < 1500:
+            message_display1_screen("Can't move!", 650, 50, 35, black_color)
+            pygame.display.update()
+    return sc, lefted, section, six
+
+      
 # Goti movement function
 def movement(a):
     l1 = [[406, 606], [456, 606], [506, 606], [556, 606], [606, 606], [656, 606], [706, 606], [756, 606], [806, 606],
@@ -372,5 +432,133 @@ def playing(best):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     Quit()
+                    
+        
+        if best == 21:
+            if button1("Player 1", mouse[0], mouse[1], 100, 700, 200, 50, red_color, grey_color, 30):
+                if tips == 1:
+                    gamer1score, less, set, six = turn(gamer1score, less, set)
+                    if not six:
+                        tips += 1
+                    xcr, ycr = movement(gamer1score)
+                    if gamer1score == 100:
+                        time = pygame.time.get_ticks()
+                        while pygame.time.get_ticks() - time < 2000:
+                            message_display1_screen("Player 1 Wins", 650, 50, 50, blue_color)
+                            pygame.mixer.Sound.play(win)
+                            pygame.display.update()
+                        break
 
+            button1("Computer", mouse[0], mouse[1], 400, 700, 200, 50, yellow_color, grey_color, 30)
+            if True:
+                if tips == 2:
+                    gamer2score, less, set, six = turn(gamer2score, less, set)
+                    xcy, ycy = movement(gamer2score)
+                    if not six:
+                        tips += 1
+                        if best < 3 or best == 21:
+                            tips = 1
+ 
+                    if gamer2score == 100:
+                        time_clock = pygame.time.get_ticks()
+                        while pygame.time.get_ticks() - time_clock < 2000:
+                            message_display1_screen("Computer Wins", 650, 50, 50, black_color)
+                            pygame.mixer.Sound.play(lose)
+                            pygame.display.update()
+                        break
+        if 5 > best > 1:
+            if button1("Player 1", mouse[0], mouse[1], 100, 700, 200, 50, red_color, grey_color, 30):
+                if tips == 1:
+                    gamer1score, less, set, six = turn(gamer1score, less, set)
+                    xcr, ycr = movement(gamer1score)
+                    if not six:
+                        tips += 1
+                    if gamer1score == 100:
+                        time_clock = pygame.time.get_ticks()
+                        while pygame.time.get_ticks() - time_clock < 2000:
+                            message_display1_screen("Player 1 Wins", 650, 50, 50, black_color)
+                            pygame.mixer.Sound.play(win)
+                            pygame.display.update()
+                        break
+
+            if button1("Player 2", mouse[0], mouse[1], 400, 700, 200, 50, yellow_color, grey_color, 30):
+                if tips == 2:
+                    gamer2score, less, set, six = turn(gamer2score, less, set)
+                    xcy, ycy = movement(gamer2score)
+                    if not six:
+                        tips += 1
+                        if best < 3:
+                            tips = 1
+
+                    if gamer2score == 100:
+                        time_clock = pygame.time.get_ticks()
+                        while pygame.time.get_ticks() - time_clock < 2000:
+                            message_display1_screen("Player 2 Wins", 650, 50, 50, black_color)
+                            pygame.mixer.Sound.play(win)
+                            pygame.display.update()
+                        break
+
+        if 5 > best > 2:
+            if button1("Player 3", mouse[0], mouse[1], 700, 700, 200, 50, green_color, grey_color, 30):
+                if tips == 3:
+                    gamer3score, less, set, six = turn(gamer3score, less, set)
+                    xcg, ycg = movement(gamer3score)
+                    if not six:
+                        tips += 1
+                        if best < 4:
+                            tips = 1
+
+                    if gamer3score == 100:
+                        time_clock = pygame.time.get_ticks()
+                        while pygame.time.get_ticks() - time_clock < 2000:
+                            message_display1_screen("Player 3 Wins", 650, 50, 50, black_color)
+                            pygame.mixer.Sound.play(win)
+                            pygame.display.update()
+                        break
+
+        if 5 > best > 3:
+            if button1("Player 4", mouse[0], mouse[1], 1000, 700, 200, 50, blue_color, grey_color, 30):
+                if tips == 4:
+                    gamer4score, less, set, six = turn(gamer4score, less, set)
+                    xcb, ycb = movement(gamer4score)
+                    if not six:
+                        tips += 1
+                        if best < 5:
+                            tips = 1
+
+                    if gamer4score == 100:
+                        time_clock = pygame.time.get_ticks()
+                        while pygame.time.get_ticks() - time_clock < 2000:
+                            message_display1_screen("Player 4 Wins", 650, 50, 50, black_color)
+                            pygame.mixer.Sound.play(win)
+                            pygame.display.update()
+                        break
+
+        best6 = button("Back", mouse[0], mouse[1], 0, 0, 200, 50, red_color, blue_red_color, 30, 7)
+        game_layout_display.blit(pred, (xcr, ycr))
+        if 5 > best > 1 or best == 21:
+            game_layout_display.blit(pyellow, (xcy + 2, ycy))
+
+        if 5 > best > 2:
+            game_layout_display.blit(pgreen, (xcg + 4, ycg))
+
+        if 5 > best > 3:
+            game_layout_display.blit(pblue, (xcb + 6, ycb))
+
+        if less:
+            time_clock = pygame.time.get_ticks()
+            while pygame.time.get_ticks() - time_clock < 2000:
+                message_display1_screen("There's a Ladder!", 650, 50, 35, black_color)
+                pygame.display.update()
+        if set:
+            time_clock = pygame.time.get_ticks()
+            while pygame.time.get_ticks() - time_clock < 2000:
+                message_display1_screen("There's a Snake!", 650, 50, 35, black_color)
+                pygame.display.update()
+
+        time_clocks.tick(7)
+        pygame.display.update()
+
+
+introduction()
 main_menu()
