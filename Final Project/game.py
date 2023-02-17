@@ -86,11 +86,6 @@ def message_display_screen(text, x, y, fs):
     game_layout_display.blit(TextSurf, TextRect)
 
 
-def text_objects_screen(text, font):
-    textSurface = font.render(text, True, black_color)
-    return textSurface, textSurface.get_rect()
-
-
 # Buttons for playing:
 def button1(t, xm, ym, x, y, wid, hei, int, after, fast):
     # mouse position
@@ -212,6 +207,76 @@ def movement(a):
     x = l2[0] - 25
     y = l2[1] - 25
     return x, y
+
+
+def text_objects_screen(text, font):
+    textSurface = font.render(text, True, black_color)
+    return textSurface, textSurface.get_rect()
+
+
+# Ladder check
+def ladders(x):
+    if x == 1:
+        return 38
+    elif x == 4:
+        return 14
+    elif x == 9:
+        return 31
+    elif x == 28:
+        return 84
+    elif x == 21:
+        return 42
+    elif x == 51:
+        return 67
+    elif x == 80:
+        return 99
+    elif x == 72:
+        return 91
+    else:
+        return x
+
+
+# Snake Check
+def snakes(x):
+    if x == 17:
+        return 7
+    elif x == 54:
+        return 34
+    elif x == 62:
+        return 19
+    elif x == 64:
+        return 60
+    elif x == 87:
+        return 36
+    elif x == 93:
+        return 73
+    elif x == 95:
+        return 75
+    elif x == 98:
+        return 79
+    else:
+        return x
+
+# Dice Check 
+def dice(d):
+    if d == 1:
+        d = dice1
+    elif d == 2:
+        d = dice2
+    elif d == 3:
+        d = dice3
+    elif d == 4:
+        d = dice4
+    elif d == 5: 
+        d = dice5
+    elif d == 6:
+        d = dice6
+
+    time_clock = pygame.time.get_ticks()
+    while pygame.time.get_ticks() - time_clock < 1000:
+        game_layout_display.blit(d, (300, 500))
+        pygame.display.update()
+
 
 # Main Menu Options
 def choice():
