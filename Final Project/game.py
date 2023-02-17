@@ -16,9 +16,9 @@ pygame.display.set_icon(ic)
 pygame.display.update()
 
 # Graphic Colors
-black_color = (10, 10, 10)
 white_color = (250, 250, 250)
 grey_color = (50, 50, 50)
+black_color = (10, 10, 10)
 yellow_color = (150, 150, 0)
 blue_purple_color = (60, 0, 190)
 red_color = (200, 0, 0)
@@ -27,6 +27,15 @@ green_color = (0, 200, 0)
 blue_green_color = (0, 230, 0)
 blue_color = (0, 0, 200)
 blue_red_color = (240, 0, 0)
+
+# Dice 1-6
+mother_board = pygame.image.load("images/Snakes_ladders_big_image.png")
+dice1 = pygame.image.load("images/dice1.png")
+dice2 = pygame.image.load("images/dice2.png")
+dice3 = pygame.image.load("images/dice3.png")
+dice4 = pygame.image.load("images/dice4.png")
+dice5 = pygame.image.load("images/dice5.png")
+dice6 = pygame.image.load("images/dice6.png")
 
 # Background Images
 background1 = pygame.image.load("images/introduction1.png")
@@ -40,14 +49,6 @@ credits = pygame.image.load("images/developer.png")
 menubg = pygame.image.load("images/menu.png")
 gamebg = pygame.image.load("images/gamebg.png")
 
-# Dice 1-6
-mother_board = pygame.image.load("images/Snakes_ladders_big_image.png")
-dice1 = pygame.image.load("images/dice1.png")
-dice2 = pygame.image.load("images/dice2.png")
-dice3 = pygame.image.load("images/dice3.png")
-dice4 = pygame.image.load("images/dice4.png")
-dice5 = pygame.image.load("images/dice5.png")
-dice6 = pygame.image.load("images/dice6.png")
 
 # Player Pawn 
 pred = pygame.image.load("images/redplayer.png")
@@ -62,6 +63,10 @@ snake_sound = pygame.mixer.Sound("sound/snake.wav")
 win = pygame.mixer.Sound("sound/win.wav")
 lose = pygame.mixer.Sound("sound/lose.wav")
 ladder = pygame.mixer.Sound("sound/ladder.wav")
+
+# mouse position
+mouse = pygame.mouse.get_pos()
+click = pygame.mouse.get_pressed()
 
 # Message displaying for field
 def message_display1_screen(text, x, y, fs, c):
@@ -100,6 +105,7 @@ def button1(t, xm, ym, x, y, wid, hei, int, after, fast):
         pygame.draw.rect(game_layout_display, int, [x, y, wid, hei])
     message_display_screen(t, (x + wid + x) / 2, (y + hei + y) / 2, fast)
     
+    #fo mute and unmute
 def button2(t, xm, ym, x, y, wid, hei, int, after, fast):
     # mouse position
     mouse = pygame.mouse.get_pos()
